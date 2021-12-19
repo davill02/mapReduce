@@ -28,10 +28,11 @@ public class StatisticCountJob {
         job.setCombinerClass(StatisticCountReducer.class);
         job.setReducerClass(StatisticCountReducer.class);
         job.setOutputKeyClass(LongWritable.class);
+        job.setMapOutputValueClass(SumAndCountWritable.class);
         job.setOutputValueClass(Text.class);
 
         // Check for if we skip anything.
-        List<String> otherArgs = new ArrayList<String>();
+        List<String> otherArgs = new ArrayList<>();
         for (int i = 0; i < remainingArgs.length; ++i) {
             if ("-skip".equals(remainingArgs[i])) {
                 job.addCacheFile(new Path(remainingArgs[++i]).toUri());
