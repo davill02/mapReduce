@@ -4,7 +4,9 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
 import java.util.ArrayList;
@@ -23,16 +25,16 @@ public class StatisticCountJob {
         }
 
         Job job = Job.getInstance(conf, "lab");
+        job.setInputFormatClass(TextInputFormat.class);
         job.setJarByClass(StatisticCountJob.class);
         job.setMapperClass(StatisticCountMapper.class);
+        job.setMapOutputKeyClass(LongWritable.class);
+        job.setMapOutputValueClass(SumAndCountWritable.class);
         job.setCombinerClass(StatisticCountReducer.class);
         job.setReducerClass(StatisticCountReducer.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(Text.class);
-
-        job.setMapOutputKeyClass(LongWritable.class);
-        job.setMapOutputValueClass(SumAndCountWritable.class);
-
+        job.setOutputFormatClass(TextOutputFormat.class);
         // Check for if we skip anything.
         List<String> otherArgs = new ArrayList<>();
         for (int i = 0; i < remainingArgs.length; ++i) {
