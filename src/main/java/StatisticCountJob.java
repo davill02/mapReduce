@@ -28,9 +28,9 @@ public class StatisticCountJob {
         job.setCombinerClass(StatisticCountReducer.class);
         job.setReducerClass(StatisticCountReducer.class);
         job.setOutputKeyClass(LongWritable.class);
-        job.setMapOutputValueClass(SumAndCountWritable.class);
         job.setOutputValueClass(Text.class);
-
+        job.setMapOutputValueClass(SumAndCountWritable.class);
+        job.setMapOutputKeyClass(LongWritable.class);
         // Check for if we skip anything.
         List<String> otherArgs = new ArrayList<>();
         for (int i = 0; i < remainingArgs.length; ++i) {
