@@ -51,7 +51,7 @@ public class SumAndCountWritable implements Writable {
 
     public void readFields(DataInput dataInput) throws IOException {
         sum = dataInput.readDouble();
-        count = dataInput.readInt();
+        count = dataInput.readDouble();
         squadSum = dataInput.readDouble();
     }
 }
