@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class StatisticCountMapper extends Mapper<Object, Text, LongWritable, SumAndCountWritable> {
+public class StatisticCountMapper extends Mapper<LongWritable, Text, LongWritable, SumAndCountWritable> {
     private Map<Long, List<Double>> keyStats;
 
     @Override
@@ -18,7 +18,7 @@ public class StatisticCountMapper extends Mapper<Object, Text, LongWritable, Sum
     }
 
     @Override
-    public void map(Object key, Text input, Context context) throws IOException, InterruptedException {
+    public void map(LongWritable key, Text input, Context context) throws IOException, InterruptedException {
         StringTokenizer tokenizer = new StringTokenizer(input.toString());
         while (tokenizer.hasMoreElements()) {
             Long keyValue = Long.parseLong(tokenizer.nextToken());
