@@ -28,7 +28,6 @@ public class StatisticCountJob {
         job.setInputFormatClass(TextInputFormat.class);
         job.setJarByClass(StatisticCountJob.class);
         job.setMapperClass(StatisticCountMapper.class);
-        job.setCombinerClass(StatisticCountReducer.class);
         job.setReducerClass(StatisticCountReducer.class);
         job.setOutputKeyClass(LongWritable.class);
         job.setOutputValueClass(Text.class);
