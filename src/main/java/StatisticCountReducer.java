@@ -15,6 +15,7 @@ public class StatisticCountReducer extends Reducer<LongWritable, SumAndCountWrit
             n += value.getCount();
             var += value.getSquadSum();
         }
+        System.out.println(n);
         mean /= n;
         var /= n;
         var -= mean * mean;
