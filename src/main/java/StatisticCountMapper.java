@@ -14,11 +14,12 @@ public class StatisticCountMapper extends Mapper<LongWritable, Text, LongWritabl
 
     @Override
     public void setup(Context context) throws IOException {
-        keyStats = new HashMap<Long, List<Double>>();
+
     }
 
     @Override
     public void map(LongWritable key, Text input, Context context) throws IOException, InterruptedException {
+        keyStats = new HashMap<Long, List<Double>>();
         StringTokenizer tokenizer = new StringTokenizer(input.toString());
         while (tokenizer.hasMoreElements()) {
             Long keyValue = Long.parseLong(tokenizer.nextToken());
@@ -43,12 +44,10 @@ public class StatisticCountMapper extends Mapper<LongWritable, Text, LongWritabl
             List<Double> stats = entry.getValue();
             context.write(keyValue, new SumAndCountWritable(stats.get(0), stats.get(1), stats.get(2)));
         }
-
+        keyStats = null;
     }
 
     @Override
     protected void cleanup(Context context) throws IOException, InterruptedException {
-        super.cleanup(context);
-        keyStats.clear();
     }
 }
